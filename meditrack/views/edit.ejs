@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Equipment</title>
+</head>
+<body>
+    <h1>Edit Equipment</h1>
+    <form action="/editequipment/<%= equipment._id %>" method="POST">
+        <input type="text" name="EquipmentId" value="<%= equipment.EquipmentId %>" placeholder="Equipment ID" required><br>
+        <input type="text" name="EquipmentName" value="<%= equipment.EquipmentName %>" placeholder="Equipment Name" required><br>
+        <input type="text" name="Category" value="<%= equipment.Category %>" placeholder="Category" required><br>
+        <input type="text" name="Description" value="<%= equipment.Description %>" placeholder="Description" required><br>
+        <input type="number" name="Quantity" value="<%= equipment.Quantity %>" placeholder="Quantity" required><br>
+        <input type="text" name="Status" value="<%= equipment.Status %>" placeholder="Status" required><br>
+        <input type="text" name="Location" value="<%= equipment.Location %>" placeholder="Location" required><br>
+        <input type="date" name="DateAdded" value="<%= equipment.DateAdded.toISOString().split('T')[0] %>" placeholder="Date Added" required><br>
+        <input type="date" name="DateExpired" value="<%= equipment.DateExpired.toISOString().split('T')[0] %>" placeholder="Date Expired" required><br>
+        <input type="text" name="Manufacturer" value="<%= equipment.Manufacturer %>" placeholder="Manufacturer" required><br>
+        <input type="number" name="Price" value="<%= equipment.Price %>" placeholder="Price" required><br>
+        <button type="submit">Update Equipment</button>
+    </form>
+    <br>
+    <a href="/profile">Back to Profile</a>
+</body>
+</html>

@@ -101,6 +101,46 @@ router.post('/addequipment', isLoggedIn, async (req, res) => {
   }
 });
 
+router.get('/editequipment/:id', isLoggedIn, async (req, res) => {
+  try {
+    const equipment = await EquipmentModel.findById(req.params.id);
+    if (!equipment) {
+      return res.redirect('/profile');
+    }
+    res.render('edit', { equipment });
+  } catch (err) {
+    console.error('Error fetching equipment:', err);
+    res.redirect('/profile');
+  }
+});
+
+router.post('/editequipment/:id', isLoggedIn, async (req, res) => {
+  const { EquipmentId, EquipmentName, Category, Description, Quantity, Status, Location, DateAdded, DateExpired, Manufacturer, Price } = req.body;
+
+  try {
+    await EquipmentModel.findByIdAndUpdate(req.params.id, {
+      EquipmentId,
+      EquipmentName,
+      Category,
+      Description,
+      Quantity,
+      Status,
+      Location,
+      DateAdded,
+      DateExpired,
+      Manufacturer,
+      Price
+    });
+    res.redirect('/profile');
+  } catch (err) {
+    console.error('Error updating equipment:', err);
+    res.redirect('/editequipment/' + req.params.id);
+  }
+});
+
+
+
+
 router.get('/logout', (req, res) => {
   req.logout((err) => {
     if (err) {

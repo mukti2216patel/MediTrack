@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Equipment</title>
+</head>
+<body>
+    <h1>Add New Equipment</h1>
+    <form action="/addequipment" method="POST">
+        <input type="text" name="EquipmentId" placeholder="Equipment ID" required><br>
+        <input type="text" name="EquipmentName" placeholder="Equipment Name" required><br>
+        <input type="text" name="Category" placeholder="Category" required><br>
+        <input type="text" name="Description" placeholder="Description" required><br>
+        <input type="number" name="Quantity" placeholder="Quantity" required><br>
+        <input type="text" name="Status" placeholder="Status" required><br>
+        <input type="text" name="Location" placeholder="Location" required><br>
+        <input type="date" name="DateAdded" placeholder="Date Added" required><br>
+        <input type="date" name="DateExpired" placeholder="Date Expired" required><br>
+        <input type="text" name="Manufacturer" placeholder="Manufacturer" required><br>
+        <input type="number" name="Price" placeholder="Price" required><br>
+        <button type="submit">Add Equipment</button>
+    </form>
+    <br>
+    <a href="/profile">Back to Profile</a>
+</body>
+</html>

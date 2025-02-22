@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Register</title>
 </head>
 <body>
-  
+    <h1>Register a New Hospital</h1>
+    <form action="/register" method="POST">
+        <input type="text" name="HospitalName" placeholder="Hospital Name" required><br>
+        <input type="text" name="HospitalType" placeholder="Hospital Type" required><br>
+        <input type="text" name="Address" placeholder="Address" required><br>
+        <input type="text" name="Contact" placeholder="Contact" required><br>
+        <input type="email" name="Email" placeholder="Email" required><br>
+        <input type="password" name="Password" placeholder="Password" required><br>
+        <input type="text" name="AdminName" placeholder="Admin Name" required><br>
+        <input type="text" name="LicenseId" placeholder="License ID" required><br>
+        <input type="number" name="YearOfEstablishment" placeholder="Year Of Establishment" required><br>
+        <button type="submit">Register</button>
+    </form>
+    <br>
+    <a href="/">Back to Home</a>
 </body>
 </html>
