@@ -11,8 +11,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 </head>
-<body>
-    <div class="relative formlogin flex flex-col items-center justify-center  mr-[130px] gap-[30px]">
+<body class="flex flex-col">
+    <nav class="w-full fixed top-0 left-0 bg-gray-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 text-2xl font-bold text-cyan-400">
+                    <a href="#">MediTrack</a>
+                </div>
+                <div class="hidden md:flex space-x-6 text-lg">
+                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300">Log In</a>
+                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300">Sign In</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-2xl focus:outline-none">
+                        ☰
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="relative formlogin flex flex-col items-center justify-center gap-[50px] mt-12">
         <h2 class="welcome text-center text-4xl font-extrabold text-cyan-400 mb-6 tracking-wide drop-shadow-lg">
             <span>W</span>
             <span>E</span>
@@ -24,10 +43,10 @@
         </h2>
     <div class="special bg-gray-800 text-center py-12 px-10 rounded-xl shadow-lg flex flex-col h-auto">
         <form action="/login" , method="/post">
-            <div class="input">
+            <div class="input mb-4">
                 <input type="text" name="HospitalName" id="" class="w-full p-3 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Enter hospital name here">
             </div>
-        
+    
             <div class="mb-4">
                 <input type="text" name="Email"  placeholder="Email " class="w-full p-3 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
