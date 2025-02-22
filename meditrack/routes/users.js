@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
-const plm = require('passport-local-mongoose');
-mongoose.connect("mongodb://localhost:27017/meditrack");
 
-const HospitalSchema = new mongoose.Schema({
+// Define the Hospital schema
+const hospitalSchema = new mongoose.Schema({
   HospitalName: {
     type: String,
-    required: true
-  },
-  HospitalId:{
-    type: String,
-    required: true
+    required: true,
+    trim: true
   },
   HospitalType: {
     type: String,
-    required: true
+    required: true,
+    trim: true
+  },
+  HospitalId: {
+    type: Number,
+    required: true,
+    unique: true
   },
   Address: {
     type: String,
@@ -26,7 +28,8 @@ const HospitalSchema = new mongoose.Schema({
   Email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    lowercase: true
   },
   Password: {
     type: String,
@@ -37,20 +40,21 @@ const HospitalSchema = new mongoose.Schema({
     required: true
   },
   LicenseId: {
-    type: Number,
+    type: String,
     required: true,
     unique: true
   },
-  YearOfEstblishment: {
+  YearOfEstablishment: {
     type: Number,
     required: true
   },
-  MedicalEquipments: [{
+  Equipment: [{  // Reference to the Equipment Model
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Equipment"
+    ref: 'Equipment'  // Reference to Equipment collection
   }]
-});
+}, { timestamps: true });  // Automatically adds createdAt and updatedAt
 
-HospitalSchema.plugin(plm);
+// Create and export the Hospital model
+const HospitalModel = mongoose.model('Hospital', hospitalSchema);
 
-module.exports = mongoose.model("Hospital", HospitalSchema);
+module.exports = HospitalModel;

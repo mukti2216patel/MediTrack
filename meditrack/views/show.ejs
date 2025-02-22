@@ -13,104 +13,72 @@
 
 <body class="w-full min-h-screen bg-gray-100 flex flex-row text-gray-800">
 
-    <!-- Sidebar -->
     <div class="w-1/4 min-h-screen bg-white flex flex-col gap-[50px] text-black shadow-2xl">
 
         <div id="medi" class="logo ml-4 mt-6 flex items-center gap-2">
             <i class="ri-heart-pulse-fill text-red-500 text-4xl"></i>
-            <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">MediTrack</span>
+            <span
+                class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">MediTrack</span>
         </div>
 
         <div class="flex flex-col text-gray-600 mt-4">
-            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+            <div
+                class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
                 <i class="ri-eye-line text-2xl text-red-500 group-hover:text-white"></i>
                 <div class="text-xl font-bold">Equipments</div>
             </div>
-            <div class="flex flex-row gap-[25px] py-4 justify-start items-center ml-2 rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+            <div
+                class="flex flex-row gap-[25px] py-4 justify-start items-center ml-2 rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
                 <i class="ri-error-warning-line text-2xl text-red-500 group-hover:text-white"></i>
                 <div class="text-xl font-bold">Reminders</div>
             </div>
-            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+            <div
+                class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
                 <i class="ri-refresh-line text-2xl text-red-500 group-hover:text-white"></i>
                 <div class="text-xl font-bold">Update</div>
             </div>
-            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+            <div
+                class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
                 <i class="ri-folder-history-fill text-2xl text-red-500 group-hover:text-white"></i>
                 <div class="text-xl font-bold">Record Usage</div>
             </div>
-            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+            <div
+                class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
                 <i class="ri-user-fill text-2xl text-red-500 group-hover:text-white"></i>
                 <div class="text-xl font-bold">Hospital Profile</div>
             </div>
-            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+            <div
+                class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
                 <i class="ri-mail-fill text-2xl text-red-500 group-hover:text-white"></i>
                 <div class="text-xl font-bold">About</div>
             </div>
         </div>
-        
+
     </div>
 
-    <!-- Main Content -->
     <div class="w-3/4 min-h-screen p-10">
-            <div class="flex justify-start mb-6 gap-4">
-                <input type="text" placeholder="Search By Equipment Name" class="border rounded-lg w-80 px-2 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500">
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    <i class="ri-add-line"></i> Add
-                </button>
-            </div>
         <h1 class="text-4xl font-bold text-gray-800 mb-6">All Equipments of Your Hospital</h1>
         <div class="grid grid-cols-3 gap-6">
-
-            <div class="bg-white rounded-xl shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-xl border-t-4 border-green-500">
-                <h2 class="text-2xl font-bold mb-2">Stethoscope</h2>
-                <p><strong>ID:</strong> E-1001</p>
-                <p><strong>Quantity:</strong> 10</p>
-                <p><strong>Description:</strong> High-quality acoustic stethoscope.</p>
-                <p><strong>Expires:</strong> N/A</p>
-                <div class="mt-4 flex gap-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        <i class="ri-edit-2-line"></i> Edit
-                    </button>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        <i class="ri-delete-bin-6-line"></i> Delete
-                    </button>
+            <% user.Equipment.forEach(function(u) { %>
+                <div class="bg-white rounded-xl shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-xl border-t-4 border-green-500">
+                    <h2 class="text-2xl font-bold mb-2"><%= u.name %></h2> <!-- Add a name for the equipment here -->
+                    <p><strong>ID:</strong> <%= u.EquipmentId %></p>
+                    <p><strong>Quantity:</strong> <%= u.Quantity %></p>
+                    <p><strong>Description:</strong> <%= u.Description %></p>
+                    <p><strong>Expires:</strong> <%= u.DateExpired ? u.DateExpired : 'N/A' %></p>
+                    <div class="mt-4 flex gap-4">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="ri-edit-2-line"></i> Edit
+                        </button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="ri-delete-bin-6-line"></i> Delete
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-xl border-t-4 border-green-500">
-                <h2 class="text-2xl font-bold mb-2">Stethoscope</h2>
-                <p><strong>ID:</strong> E-1001</p>
-                <p><strong>Quantity:</strong> 10</p>
-                <p><strong>Description:</strong> High-quality acoustic stethoscope.</p>
-                <p><strong>Expires:</strong> N/A</p>
-                <div class="mt-4 flex gap-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        <i class="ri-edit-2-line"></i> Edit
-                    </button>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        <i class="ri-delete-bin-6-line"></i> Delete
-                    </button>
-                </div>
-            </div>
-            
-            <div class="bg-red-100 rounded-xl shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-xl border-t-4 border-red-500">
-                <h2 class="text-2xl font-bold mb-2">Syringes</h2>
-                <p><strong>ID:</strong> E-1002</p>
-                <p><strong>Quantity:</strong> 3</p>
-                <p><strong>Description:</strong> Disposable sterile syringes.</p>
-                <p><strong>Expires:</strong> 2026-05-12</p>
-                <div class="mt-4 flex gap-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        <i class="ri-edit-2-line"></i> Edit
-                    </button>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        <i class="ri-delete-bin-6-line"></i> Delete
-                    </button>
-                </div>
-            </div>
-            
-
+            <% }); %>
         </div>
     </div>
+    
 </body>
 
 </html>

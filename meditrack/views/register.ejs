@@ -13,20 +13,20 @@
     class="flex flex-col justify-center items-center min-h-screen m-0 bg-white from-[#141e30] to-[#243b55] font-sans overflow-hidden">
     <div class="flex w-[800px] h-[500px] shadow-2xl rounded-lg overflow-hidden">
         <div class="w-1/2 bg-white p-12 flex flex-col justify-start">
-            <form action="/profile" method="post">
+            <form action="/register" method="post">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center welcome">
                     <span>R</span><span>E</span><span>G</span><span>I</span><span>S</span><span>T</span><span>R</span><span>A</span><span>T</span><span>I</span><span>O</span><span>N</span>
                 </h2>
                 <input type="text" placeholder="Hospital Name" name="HospitalName"
                     class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
-                <input type="text" placeholder="Hospital Id" name="HospitalId"
-                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
-                <select name="HospitalType"
+                    <select name="HospitalType"
                     class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
                     <option value="Government">Government</option>
                     <option value="Speciality">Speciality</option>
                     <option value="Private">Private</option>
                 </select>
+                <input type="text" placeholder="Number" name="HospitalId"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
                 <textarea placeholder="Address" name="Address"
                     class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md"></textarea>
                 <input type="tel" placeholder="Contact No." name="Contact"
@@ -41,7 +41,7 @@
                 class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
             <input name="LicenseId" type="text" placeholder="License ID"
                 class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
-            <input name="YearOfEstblishment" type="text" placeholder="Year of Establishment"
+            <input name="YearOfEstablishment" type="Number" placeholder="Year of Establishment" required
                 class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
             <button
                 class="bg-[#ff416c] text-white border-none px-5 py-2 rounded-full cursor-pointer transition duration-300 ease-in-out font-bold hover:bg-[#ff4b2b] mt-5">SUBMIT</button>
