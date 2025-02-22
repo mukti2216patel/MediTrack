@@ -9,7 +9,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #01172D ;
+    background-color: black ;
 }
 
 h1 {
@@ -24,15 +24,14 @@ h1 {
 }
 
 span{
-    color: white;
+    color: rgb(0, 255, 255);
     font-size: 3rem;
     font-style: bold;
     padding: 7px;
     font-weight: 900;
     font-family: Alfa Slab One;
-    text-shadow: 0 5px rgba(224, 227, 231, 0.5);
+    text-shadow: 0 5px rgb(178, 178, 178);
 }
-
 .input {
     margin: 10px 0;
 }
@@ -66,7 +65,7 @@ input:focus {
     font-size: 18px;
     font-weight: bold;
     color: white;
-    background: linear-gradient(135deg, #007BFF, #0056b3); /* Smooth gradient */
+    
     border: none;
     border-radius: 35px;
     cursor: pointer;
@@ -76,12 +75,12 @@ input:focus {
 
 #submit button:hover {
     background: linear-gradient(135deg, #0056b3, #003d82);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 6px 15px rgb(97, 174, 255);
 }
 
 #submit button:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 2px 5px rgb(81, 165, 255);
 }
 
 .navbar {
