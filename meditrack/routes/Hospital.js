@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const plm = require('passport-local-mongoose');
 mongoose.connect("mongodb://localhost:27017/meditrack");
 
-const hospitalSchema = create({
+const HospitalSchema = create({
   HospitalName:String , 
   HospitalType:String,
   Address:String,
@@ -18,6 +18,6 @@ const hospitalSchema = create({
   }
 });
 
-hospitalSchema.plugin(plm);
-module.exports = mongoose.model("Hospital" , hospitalSchema);
+HospitalSchema.plugin(plm);
+module.exports = mongoose.model("Hospital" , HospitalSchema);
 
