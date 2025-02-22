@@ -51,7 +51,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-
 // Route for favicon.ico
 app.get('/favicon.ico', (req, res) => {
   res.status(204).end();
