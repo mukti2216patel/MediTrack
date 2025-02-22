@@ -99,19 +99,30 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/show", isLoggedIn, async (req, res) => {
+  if (!req.user) {
+    return res.status(401).send("User is not authenticated");
+  }
+
   try {
-    let user = await HospitalModel.findById(req.user.id).populate("Equipment");
+    console.log(req.user);
+    console.log(req.user._id); 
+    let user = await HospitalModel.findById(req.user._id).populate("equipments");
+    console.log("User data:", user);
+    if (!user) {
+      return res.status(404).send("Hospital not found");
+    }
     res.render("show", { user });
   } catch (err) {
     res.status(500).send("Error loading equipment data");
   }
 });
 
+
 router.get("/add", isLoggedIn, (req, res) => {
   res.render("add", { user: req.user });
 });
 
-router.post("/add", async (req, res) => {
+router.post("/add", isLoggedIn, async (req, res) => {
   let {
     EquipmentId,
     EquipmentName,
@@ -123,17 +134,25 @@ router.post("/add", async (req, res) => {
     DateExpired,
     Manufacturer,
     Price,
-    HospitalId,
     UsageDates,
   } = req.body;
-  let existequ = await EquipmentModel.findOne({ EquipmentId });
-  if (existequ) {
-    return res.status(400).send("Equipment already exists");
-  }
-  let hospital = await HospitalModel.findOne({ _id: HospitalId });
+  
+  let hid = req.user._id;
+  console.log(hid);
+  console.log(req.user);
+  let hospital = await HospitalModel.findOne({ _id: hid });
   if (!hospital) {
     return res.status(404).send("Hospital not found.");
   }
+  let existingEquipment = await EquipmentModel.findOne({
+    EquipmentId: EquipmentId,
+    HospitalId: hid, 
+  });
+
+  if (existingEquipment) {
+    return res.status(400).send("This equipment is already registered in this hospital.");
+  }
+
   let newEquipment = new EquipmentModel({
     EquipmentId,
     EquipmentName,
@@ -145,14 +164,22 @@ router.post("/add", async (req, res) => {
     DateExpired,
     Manufacturer,
     Price,
-    HospitalId,
+    HospitalId: hid,
     UsageDates,
   });
+  console.log(newEquipment);
   await newEquipment.save();
-  hospital.equipments.push(newEquipment._id);
+
+  // Add the new equipment to the hospital's equipments list (make sure it's plural)
+  hospital.equipments.push(newEquipment._id);  // Update to 'equipments' not 'Equipment'
   await hospital.save();
+
   res.redirect('/show');
 });
+
+
+
+
 router.get("/reminder", isLoggedIn, (req, res) => {
   res.render("reminder", { user: req.user });
 });
@@ -178,12 +205,20 @@ function isLoggedIn(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
+    console.log("Decoded JWT:", decoded); // Log decoded token for debugging
+   
+    req.user = {
+      _id: decoded.id, // Map the decoded 'id' to '_id' field
+      Email: decoded.Email, // Ensure Email is mapped as well
+    };
+    
     next();
   } catch (err) {
-    res.status(400).send("Invalid Token");
+    console.error("Error decoding JWT:", err);
+    return res.status(400).send("Invalid Token");
   }
 }
+
 
 router.get("/logout", (req, res) => {
   res.clearCookie("token");

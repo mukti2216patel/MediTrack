@@ -48,11 +48,11 @@ const hospitalSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  Equipment: [{  // Reference to the Equipment Model
+  equipments: [{  // Reference to the Equipment Model
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Equipment'  // Reference to Equipment collection
   }]
-}, { timestamps: true });  // Automatically adds createdAt and updatedAt
+}, { timestamps: true , autoIndex:false });  // Automatically adds createdAt and updatedAt
 
 // Create and export the Hospital model
 const HospitalModel = mongoose.model('Hospital', hospitalSchema);
