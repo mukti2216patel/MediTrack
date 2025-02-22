@@ -6,14 +6,7 @@ const EquipmentModel = require('./Equipment');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bodyParser = require('body-parser');
-
-// Middleware
 router.use(bodyParser.urlencoded({ extended: true }));
-
-// Passport Configuration
-passport.use(new localStrategy(HospitalModel.authenticate()));
-passport.serializeUser(HospitalModel.serializeUser());
-passport.deserializeUser(HospitalModel.deserializeUser());
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -99,7 +92,7 @@ router.post('/addequipment', isLoggedIn, async (req, res) => {
       Price,
       HospitalId: hospital._id
     });
-    
+
     await newEquipment.save();
     res.redirect('/profile');
   } catch (err) {
@@ -108,7 +101,6 @@ router.post('/addequipment', isLoggedIn, async (req, res) => {
   }
 });
 
-// Logout
 router.get('/logout', (req, res) => {
   req.logout((err) => {
     if (err) {
