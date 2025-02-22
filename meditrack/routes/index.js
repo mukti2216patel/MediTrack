@@ -1,16 +1,25 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require('mongoose');
 const HospitalModel = require('./Hospital');
+const EquipmentModel = require('./Equipment');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-passport.use(new localStrategy(userModel.authenticate()));
-const EquipmentModel = require('./Equipment');
+const bodyParser = require('body-parser');
+
+// Middleware
+router.use(bodyParser.urlencoded({ extended: true }));
+
+// Passport Configuration
+passport.use(new localStrategy(HospitalModel.authenticate()));
+passport.serializeUser(HospitalModel.serializeUser());
+passport.deserializeUser(HospitalModel.deserializeUser());
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    res.redirect('/');
+    res.redirect('/login');
   }
 }
 
@@ -40,6 +49,7 @@ router.post('/register', async (req, res) => {
       LicenseId,
       YearOfEstablishment
     });
+
     await HospitalModel.register(newHospital, Password);
     passport.authenticate('local')(req, res, () => {
       res.redirect('/profile');
@@ -50,31 +60,62 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.get('/login' , async(req , res)=>{
+router.get('/login', (req, res) => {
   res.render('login');
-})
+});
 
 router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/',
+  failureRedirect: '/login',
   successRedirect: '/profile',
 }));
 
-router.get('/profile' , isLoggedIn , (req , res)=>{
-    res.render('profile');
+router.get('/profile', isLoggedIn, (req, res) => {
+  res.render('profile');
 });
 
-router.get('/addequipment' , isLoggedIn , (req , res)=>{
+router.get('/addequipment', isLoggedIn, (req, res) => {
   res.render('Add');
-})
+});
 
-router.post('/addequipment' , isLoggedIn , (req , res)=>{
-    let{}
-})
+router.post('/addequipment', isLoggedIn, async (req, res) => {
+  let { EquipmentId, EquipmentName, Category, Description, Quantity, Status, Location, DateAdded, DateExpired, Manufacturer, Price } = req.body;
 
+  try {
+    let hospital = await HospitalModel.findById(req.session.passport.user);
+    if (!hospital) {
+      return res.redirect('/login');
+    }
+    const newEquipment = new EquipmentModel({
+      EquipmentId,
+      EquipmentName,
+      Category,
+      Description,
+      Quantity,
+      Status,
+      Location,
+      DateAdded,
+      DateExpired,
+      Manufacturer,
+      Price,
+      HospitalId: hospital._id
+    });
+    
+    await newEquipment.save();
+    res.redirect('/profile');
+  } catch (err) {
+    console.error('Error adding equipment:', err);
+    res.redirect('/addequipment');
+  }
+});
 
+// Logout
 router.get('/logout', (req, res) => {
-  req.logout(() => {
+  req.logout((err) => {
+    if (err) {
+      console.error('Error logging out:', err);
+    }
     res.redirect('/');
   });
 });
+
 module.exports = router;
