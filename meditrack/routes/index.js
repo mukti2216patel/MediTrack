@@ -1,14 +1,15 @@
-var express = require("express");
-var router = express.Router();
-const mongoose = require("mongoose");
-const HospitalModel = require("./Hospital");
+const express = require("express");
+const router = express.Router();
+const HospitalModel = require("./users");
 const EquipmentModel = require("./Equipment");
 const passport = require("passport");
-const localStrategy = require("passport-local").Strategy;
-const bodyParser = require("body-parser");
-router.use(bodyParser.urlencoded({ extended: true }));
+const localStrategy = require('passport-local');
+passport.use(new localStrategy(HospitalModel.authenticate()));
 
 function isLoggedIn(req, res, next) {
+    console.log("Authenticated:", req.isAuthenticated());  // Log the authentication status
+   
+  console.log(req);
   if (req.isAuthenticated()) {
     return next();
   } else {
@@ -16,8 +17,8 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-router.get("/", function (req, res, next) {
-  res.render("register", { title: "Express" });
+router.get("/", (req, res) => {
+  res.render("login");
 });
 
 router.get("/register", (req, res) => {
@@ -25,23 +26,25 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  let {
-    HospitalName,
-    HospitalType,
-    Address,
-    Contact,
-    Email,
-    Password,
-    AdminName,
-    LicenseId,
-    YearOfEstablishment,
+  let { 
+    HospitalName, 
+    HospitalType, 
+    Address, 
+    Contact, 
+    Email, 
+    Password, 
+    AdminName, 
+    LicenseId, 
+    YearOfEstablishment
   } = req.body;
-
+  
   try {
     let existHospital = await HospitalModel.findOne({ LicenseId });
     if (existHospital) {
-      return res.redirect("/login");
+      console.log("Hospital already exists:", existHospital);
+      return res.redirect("/login");  // Redirect to login if hospital exists
     }
+
     const newHospital = new HospitalModel({
       HospitalName,
       HospitalType,
@@ -50,18 +53,22 @@ router.post("/register", async (req, res) => {
       Email,
       AdminName,
       LicenseId,
-      YearOfEstablishment,
+      YearOfEstablishment
     });
 
-    await HospitalModel.register(newHospital, Password);
-    passport.authenticate("local")(req, res, () => {
-      res.redirect("/profile");
-    });
+    HospitalModel.register(newHospital, req.body.Password).then(
+      function(){
+        passport.authenticate('local')(req , res,function(){
+          res.redirect('/profile');
+        })
+      }
+    )
   } catch (err) {
-    console.error("Error registering user:", err);
+    console.log("Error during registration:", err);
     res.redirect("/register");
   }
 });
+
 
 router.get("/login", (req, res) => {
   res.render("login");
@@ -71,148 +78,21 @@ router.post(
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/login",
-    successRedirect: "/profile",
+    successRedirect: "/profile"
   })
 );
 
 router.get("/profile", isLoggedIn, (req, res) => {
-  res.render("profile");
-});
-
-router.get("/addequipment", isLoggedIn, (req, res) => {
-  res.render("Add");
-});
-
-router.post("/addequipment", isLoggedIn, async (req, res) => {
-  let {
-    EquipmentId,
-    EquipmentName,
-    Category,
-    Description,
-    Quantity,
-    Status,
-    Location,
-    DateAdded,
-    DateExpired,
-    Manufacturer,
-    Price,
-  } = req.body;
-
-  try {
-    let hospital = await HospitalModel.findById(req.session.passport.user);
-    if (!hospital) {
-      return res.redirect("/login");
-    }
-    const newEquipment = new EquipmentModel({
-      EquipmentId,
-      EquipmentName,
-      Category,
-      Description,
-      Quantity,
-      Status,
-      Location,
-      DateAdded,
-      DateExpired,
-      Manufacturer,
-      Price,
-      HospitalId: hospital._id,
-    });
-
-    await newEquipment.save();
-    hospital.MedicalEquipments.push(newEquipment._id);
-    await hospital.save();
-    res.redirect("/profile");
-  } catch (err) {
-    console.error("Error adding equipment:", err);
-    res.redirect("/addequipment");
-  }
-});
-
-router.get("/editequipment/:id", isLoggedIn, async (req, res) => {
-  try {
-    const equipment = await EquipmentModel.findById(req.params.id);
-    if (!equipment) {
-      return res.redirect("/profile");
-    }
-    res.render("edit", { equipment });
-  } catch (err) {
-    console.error("Error fetching equipment:", err);
-    res.redirect("/profile");
-  }
-});
-
-router.post("/editequipment/:id", isLoggedIn, async (req, res) => {
-  const {
-    EquipmentId,
-    EquipmentName,
-    Category,
-    Description,
-    Quantity,
-    Status,
-    Location,
-    DateAdded,
-    DateExpired,
-    Manufacturer,
-    Price,
-  } = req.body;
-
-  try {
-    await EquipmentModel.findByIdAndUpdate(req.params.id, {
-      EquipmentId,
-      EquipmentName,
-      Category,
-      Description,
-      Quantity,
-      Status,
-      Location,
-      DateAdded,
-      DateExpired,
-      Manufacturer,
-      Price,
-    });
-    res.redirect("/profile");
-  } catch (err) {
-    console.error("Error updating equipment:", err);
-    res.redirect("/editequipment/" + req.params.id);
-  }
-});
-
-router.post("/deleteequipment/:id", async (req, res) => {
-  try {
-    await EquipmentModel.findByIdAndDelete(req.params.id);
-    res.redirect("/profile");
-  } catch (err) {
-    console.error("Error deleting equipment:", err);
-    res.status(500).send("Error deleting equipment");
-  }
-});
-
-router.get("/lowstock", isLoggedIn, async (req, res) => {
-  try {
-    const hospital = await HospitalModel.findById(req.session.passport.user);
-    if (!hospital) {
-      return res.redirect("/login");
-    }
-    let allequiofuser = await HospitalModel.findById(hospital._id).populate(
-      "MedicalEquipments"
-    );
-    let lowstockequi = allequiofuser.MedicalEquipments.filter(
-      (equipment) => equipment.Quantity <= 5
-    );
-    let expiredequi = allequiofuser.MedicalEquipments.filter((equipment)=> equipment.DateExpired <= Date.now());
-    res.render('lowstock' , {lowequipments:lowstockequi , expiredequipments:expiredequi});
-  } catch (err) {
-    console.error("Error fetching hospital equipment:", err);
-    res.redirect("/profile");
-  }
+  res.render("profile", { user: req.user }); // Pass the user data to the profile page
 });
 
 
-
-router.get("/logout", (req, res) => {
+// Logout Route
+router.get("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
       console.error("Error logging out:", err);
+      return next(err);
     }
     res.redirect("/");
   });

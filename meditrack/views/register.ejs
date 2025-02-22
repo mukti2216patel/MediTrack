@@ -4,127 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital Registration</title>
+    <title>Sign Up Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="register_style.css">
+
 </head>
 
-<body class="bg-black min-h-screen flex flex-col items-center justify-center">
-
-    <!-- Navigation Bar -->
-    <nav class="w-full fixed top-0 left-0 bg-gray-900 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 text-2xl font-bold text-cyan-400">
-                    <a href="#">MediTrack</a>
-                </div>
-                <div class="hidden md:flex space-x-6 text-lg">
-                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300 font-bold">Log In</a>
-                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300 font-bold">Sign In</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="menu-btn" class="text-2xl focus:outline-none">
-                        ☰
-                    </button>
-                </div>
-            </div>
+<body
+    class="flex flex-col justify-center items-center min-h-screen m-0 bg-white from-[#141e30] to-[#243b55] font-sans overflow-hidden">
+    <div class="flex w-[800px] h-[500px] shadow-2xl rounded-lg overflow-hidden">
+        <div class="w-1/2 bg-white p-12 flex flex-col justify-start">
+            <form action="/profile" method="post">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center welcome">
+                    <span>R</span><span>E</span><span>G</span><span>I</span><span>S</span><span>T</span><span>R</span><span>A</span><span>T</span><span>I</span><span>O</span><span>N</span>
+                </h2>
+                <input type="text" placeholder="Hospital Name" name="HospitalName"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+                <input type="text" placeholder="Hospital Id" name="HospitalId"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+                <select name="HospitalType"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+                    <option value="Government">Government</option>
+                    <option value="Speciality">Speciality</option>
+                    <option value="Private">Private</option>
+                </select>
+                <textarea placeholder="Address" name="Address"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md"></textarea>
+                <input type="tel" placeholder="Contact No." name="Contact"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+                <input type="email" placeholder="Email ID" name="Email"
+                    class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
         </div>
-    </nav>
-
-    <div id="main" class="w-auto h-auto flex flex-col justify-center items-center mt-16 gap-[50px]">
-        <h2 class="welcome text-center text-xl font-extrabold text-cyan-400 mb-8 tracking-tighter drop-shadow-lg mt-6">
-            <span>R</span>
-            <span>E</span>
-            <span>G</span>
-            <span>I</span>
-            <span>S</span>
-            <span>T</span>
-            <span>R</span>
-            <span>A</span>
-            <span>T</span>
-            <span>I</span>
-            <span>O</span>
-            <span>N</span>
-        </h2>
-        <div class="w-full max-w-lg p-8 bg-gray-800 rounded-2xl shadow-2xl text-white transform transition-all duration-500 hover:scale-105">
-           
-            <form action="/register" method="post" class="space-y-6">
-                <div>
-                    <label for="hospitalName" class="block text-gray-300 mb-1">Hospital Name:</label>
-                    <input type="text" id="hospitalName" name="HospitalName" placeholder="Enter hospital name"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div>
-                    <label for="hospitalType" class="block text-gray-300 mb-1">Hospital Type:</label>
-                    <select id="hospitalType" name="HospitalType"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                        <option value="Government">Government</option>
-                        <option value="Speciality">Speciality</option>
-                        <option value="Private">Private</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="address" class="block text-gray-300 mb-1">Address:</label>
-                    <textarea id="address" name="Address" placeholder="Enter address here"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
-                </div>
-                <div>
-                    <label for="contact" class="block text-gray-300 mb-1">Contact No.:</label>
-                    <input type="tel" id="contact" name="Contact" placeholder="Enter contact number"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div>
-                    <label for="email" class="block text-gray-300 mb-1">Email ID:</label>
-                    <input type="email" id="email" name="Email" placeholder="Enter email here"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div>
-                    <label for="adminName" class="block text-gray-300 mb-1">Admin Name:</label>
-                    <input type="text" id="adminName" name="AdminName" placeholder="Enter admin name"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div>
-                    <label for="licenseID" class="block text-gray-300 mb-1">License ID:</label>
-                    <input type="text" id="licenseID" name="LicenseID" placeholder="Enter license ID"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div>
-                    <label for="establishmentYear" class="block text-gray-300 mb-1">Year of Establishment:</label>
-                    <input type="text" id="establishmentYear" name="YearOfEstablishment"
-                        placeholder="Enter year of establishment"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div>
-                    <label for="password" class="block text-gray-300 mb-1">Password:</label>
-                    <input type="password" id="password" name="Password" placeholder="Enter password here"
-                        class="w-full p-4 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div class="mt-8">
-                    <button type="submit"
-                        class="w-full py-4 bg-cyan-400 text-black font-semibold rounded-lg hover:bg-cyan-300 transition-colors">
-                        Submit
-                    </button>
-                </div>
+        <div class="w-1/2 bg-gradient-to-br from-[#ff416c] to-[#ff4b2b] text-white p-12 flex flex-col justify-start">
+            <input type="password" name="Password" placeholder="Password"
+                class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <input type="text" name="AdminName" placeholder="Admin Name"
+                class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <input name="LicenseId" type="text" placeholder="License ID"
+                class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <input name="YearOfEstblishment" type="text" placeholder="Year of Establishment"
+                class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <button
+                class="bg-[#ff416c] text-white border-none px-5 py-2 rounded-full cursor-pointer transition duration-300 ease-in-out font-bold hover:bg-[#ff4b2b] mt-5">SUBMIT</button>
             </form>
         </div>
-    </div>
-   
 
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
         gsap.from(".welcome span", {
             y: 0,
             opacity: 0,
             stagger: 0.1,
             duration: 0.8,
-            ease: "power2.out"
-        });
-
-        gsap.from("form div", {
-            opacity: 0,
-            y: 0,
-            stagger: 0.2,
-            duration: 1,
             ease: "power2.out"
         });
     </script>

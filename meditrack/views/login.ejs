@@ -3,87 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="./login_style.css">
-    <title>Login Page</title>
-
+    <title>Sign Up Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
 </head>
-<body class="flex flex-col">
-    <nav class="w-full fixed top-0 left-0 bg-gray-900 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 text-2xl font-bold text-cyan-400">
-                    <a href="#">MediTrack</a>
-                </div>
-                <div class="hidden md:flex space-x-6 text-lg">
-                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300">Log In</a>
-                    <a href="#" class="hover:text-cyan-400 transition-colors duration-300">Sign In</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="menu-btn" class="text-2xl focus:outline-none">
-                        ☰
-                    </button>
-                </div>
-            </div>
+<body class="flex justify-center items-center min-h-screen m-0 bg-white from-[#141e30] to-[#243b55] font-sans overflow-hidden">
+    <div class="flex w-[800px] h-[500px] shadow-2xl rounded-lg overflow-hidden">
+        <div class="w-1/2 bg-white p-12 flex flex-col justify-center items-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 welcome">
+                <span>S</span><span>I</span><span>G</span><span>N</span> <span>I</span><span>N</span>
+            </h2>
+            <input type="text" name="HospitalId" placeholder="HospitalId" class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <input type="email" name="email" placeholder="Email" class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <input type="password" name="password" placeholder="Password" class="bg-gray-200 border-none p-3 mb-3 w-full rounded-full box-border focus:outline-none focus:shadow-md">
+            <button class="bg-[#ff416c] text-white border-none px-5 py-2 rounded-full cursor-pointer transition duration-300 ease-in-out font-bold mt-2 hover:bg-[#ff4b2b]">SIGN IN</button>
         </div>
-    </nav>
-
-    <div class="relative formlogin flex flex-col items-center justify-center gap-[50px] mt-12">
-        <h2 class="welcome text-center text-4xl font-extrabold text-cyan-400 mb-6 tracking-wide drop-shadow-lg">
-            <span>W</span>
-            <span>E</span>
-            <span>L</span>
-            <span>C</span>
-            <span>O</span>
-            <span>M</span>
-            <span>E</span>
-        </h2>
-    <div class="special bg-gray-800 text-center py-12 px-10 rounded-xl shadow-lg flex flex-col h-auto">
-        <form action="/login" , method="/post">
-            <div class="input mb-4">
-                <input type="text" name="HospitalName" id="" class="w-full p-3 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Enter hospital name here">
-            </div>
-    
-            <div class="mb-4">
-                <input type="text" name="Email"  placeholder="Email " class="w-full p-3 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-            </div>
-            <div class="mb-6">
-                <input type="password" name="Password" placeholder="Password" class="w-full p-3 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-            </div>
-            <button class="mt-3 w-full py-3 bg-cyan-400 text-black font-semibold rounded-md hover:bg-cyan-300 transition-colors">Login</button>
+        <div class="w-1/2 bg-gradient-to-br from-[#ff416c] to-[#ff4b2b] text-white p-12 flex flex-col justify-center items-center text-center">
+            <h2 class="text-2xl font-bold mb-4">Hello, Friend!</h2>
+            <p class="mb-5">Enter your personal details and start your journey with us</p>
             <a href="/register">
-                <button class="mt-3 w-full py-3 bg-cyan-400 text-black font-semibold rounded-md hover:bg-cyan-300 transition-colors">Sign
-                    Up</button>
+                <button class="bg-white text-[#ff416c] border-none px-5 py-2 rounded-full cursor-pointer transition duration-300 ease-in-out font-bold mt-2 hover:bg-[#ffebe6]">SIGN UP</button>
             </a>
-            <p class="text-xs text-gray-400 mt-4">
-                By continuing, you agree to our <a href="#" class="text-cyan-400 hover:underline">Terms of
-                    Service</a> and acknowledge you've read our <a href="#" class="text-cyan-400 hover:underline">Privacy Policy</a>.
-            </p>
-        </form>
-        
+        </div>
     </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        const letters = document.querySelectorAll('.welcome span');
-    
-        gsap.from(letters, {
-            opacity: 0,                  
-            y: 30,                        
-            duration: 0.6,                 
-            stagger: 0.2,                 
-            ease: "back.out(1.7)"          
+        gsap.from(".welcome span", {
+            y: 0,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "power2.out"
         });
-        gsap.from('.special' , {
-            opacity:0,
-            y:0,
-            duration:1,
-            delay:1.4,
-            ease: "back.out(1.7)"    
-        })
     </script>
-
 </body>
 </html>

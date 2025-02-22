@@ -1,26 +1,70 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Add Equipment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Equipment - MediTrack</title>
+    <!-- Remix Icon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Add New Equipment</h1>
-    <form action="/addequipment" method="POST">
-        <input type="text" name="EquipmentId" placeholder="Equipment ID" required><br>
-        <input type="text" name="EquipmentName" placeholder="Equipment Name" required><br>
-        <input type="text" name="Category" placeholder="Category" required><br>
-        <input type="text" name="Description" placeholder="Description" required><br>
-        <input type="number" name="Quantity" placeholder="Quantity" required><br>
-        <input type="text" name="Status" placeholder="Status" required><br>
-        <input type="text" name="Location" placeholder="Location" required><br>
-        <input type="date" name="DateAdded" placeholder="Date Added" required><br>
-        <input type="date" name="DateExpired" placeholder="Date Expired" required><br>
-        <input type="text" name="Manufacturer" placeholder="Manufacturer" required><br>
-        <input type="number" name="Price" placeholder="Price" required><br>
-        <button type="submit">Add Equipment</button>
-    </form>
-    <br>
-    <a href="/profile">Back to Profile</a>
+
+<body class="w-full min-h-screen bg-gray-100 flex flex-row text-gray-800">
+
+    <!-- Sidebar Navigation -->
+    <div class="w-1/4 min-h-screen bg-white flex flex-col gap-[50px] text-black shadow-2xl">
+
+        <div id="medi" class="logo ml-4 mt-6 flex items-center gap-2">
+            <i class="ri-heart-pulse-fill text-red-500 text-4xl"></i>
+            <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">MediTrack</span>
+        </div>
+
+        <div class="flex flex-col text-gray-600 mt-4">
+            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+                <i class="ri-eye-line text-2xl text-red-500 group-hover:text-white"></i>
+                <div class="text-xl font-bold">Equipments</div>
+            </div>
+            <div class="flex flex-row gap-[25px] py-4 justify-start items-center ml-2 rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+                <i class="ri-error-warning-line text-2xl text-red-500 group-hover:text-white"></i>
+                <div class="text-xl font-bold">Reminders</div>
+            </div>
+            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+                <i class="ri-refresh-line text-2xl text-red-500 group-hover:text-white"></i>
+                <div class="text-xl font-bold">Update</div>
+            </div>
+            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+                <i class="ri-folder-history-fill text-2xl text-red-500 group-hover:text-white"></i>
+                <div class="text-xl font-bold">Record Usage</div>
+            </div>
+            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+                <i class="ri-user-fill text-2xl text-red-500 group-hover:text-white"></i>
+                <div class="text-xl font-bold">Hospital Profile</div>
+            </div>
+            <div class="flex flex-row gap-[25px] py-4 justify-start ml-2 items-center rounded-md transition-colors duration-300 hover:bg-red-500 hover:text-white group">
+                <i class="ri-mail-fill text-2xl text-red-500 group-hover:text-white"></i>
+                <div class="text-xl font-bold">About</div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="w-3/4 min-h-screen p-10 bg-gray-50 rounded-xl shadow-lg">
+      
+        <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-red-400">
+            <h2 class="text-3xl font-extrabold mb-4 text-red-600">Add New Equipment</h2>
+            <form class="space-y-4">
+                <input type="text" placeholder="Equipment Name" class="w-full p-2 border rounded-md">
+                <input type="text" placeholder="Equipment ID" class="w-full p-2 border rounded-md">
+                <input type="number" placeholder="Quantity" class="w-full p-2 border rounded-md">
+                <input type="text" placeholder="Description" class="w-full p-2 border rounded-md">
+                <input type="date" placeholder="Expiry Date" class="w-full p-2 border rounded-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+
 </body>
 </html>

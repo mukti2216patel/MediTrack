@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const plm = require('passport-local-mongoose');
+
 mongoose.connect("mongodb://localhost:27017/meditrack");
+
 const EquipmentSchema = new mongoose.Schema({
     EquipmentId: {
         type: String,
@@ -35,10 +37,6 @@ const EquipmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    DateAdded: {
-        type: Date,
-        default: Date.now
-    },
     DateExpired: {
         type: Date,
         required: false
@@ -57,7 +55,13 @@ const EquipmentSchema = new mongoose.Schema({
         ref: 'Hospital',
         required: true,
         index: true
+    },
+    UsageDates: {
+        type: [Date], // Array of dates to track each usage
+        default: []
     }
 }, { timestamps: true });
+
 EquipmentSchema.plugin(plm);
-module.exports = mongoose.model("Equipment" , EquipmentSchema);
+
+module.exports = mongoose.model("Equipment", EquipmentSchema);
