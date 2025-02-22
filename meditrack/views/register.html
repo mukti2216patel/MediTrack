@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="register_style.css" />
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <div class="login">
+    <span>S</span><span>I</span><span>G</span><span>N</span><span> </span><span>U</span><span>P</span>
+  </div>
+
+  <div class="form-container">
+    <div class="form-group">
+      <label for="hospitalName">Enter Hospital Name:</label>
+      <input type="text" id="hospitalName" name="HospitalName" placeholder="Enter hospital name here" />
+    </div>
+
+    <div class="form-group">
+        <label for="hospitalType">Enter Hospital Type:</label>
+        <select id="hospitalType" name="hospitalType">
+            <option value="Gov1">Gov1</option>
+            <option value="Gov2">Gov2</option>
+            <option value="Gov3">Gov3</option>
+            <option value="Gov4">Gov4</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Enter Address:</label>
+        <textarea id="address" name="address" placeholder="Enter address here"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="contact">Enter Contact no.:</label>
+        <input type="tel" id="contact" name="contact" placeholder="Enter contact number" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Enter Email ID:</label>
+      <input type="email" id="email" name="Email" placeholder="Enter email here" />
+    </div>
+
+    <div class="form-group">
+        <label for="adminName">Enter Admin Name:</label>
+        <input type="text" id="adminName" name="adminName" placeholder="Enter admin name" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Enter Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter password here" />
+    </div>
+
+    <div class="form-group">
+        <label for="licenseID">Enter License ID:</label>
+        <input type="text" id="licenseID" name="licenseID" placeholder="Enter license ID" />
+    </div>
+
+    <div class="form-group">
+        <label for="establishmentYear">Enter Year of Establishment:</label>
+        <input type="text" id="establishmentYear" name="establishmentYear" placeholder="Enter year of establishment" />
+    </div>
+
+    <div id="submit">
+      <button type="submit">Submit</button>
+    </div>
+  </div>
+</body>
+</html>

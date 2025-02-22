@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat+Brush&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #01172D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    color: #f2fcf1;
+    margin-bottom: 20px;
+}
+
+.login {
+    margin: 20px;
+    margin-bottom: 30px;
+}
+
+span {
+    color: white;
+    font-size: 3rem;
+    font-weight: 900;
+    padding: 7px;
+    font-family: 'Alfa Slab One', sans-serif;
+    text-shadow: 0 5px rgba(224, 227, 231, 0.5);
+}
+
+/* Form Container */
+.form-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 238, 255, 0.3);
+    width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #0ef;
+}
+
+/* Input Fields */
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 35px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s ease-in-out;
+    opacity: 0.7;
+    text-indent: 20px;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    opacity: 1;
+}
+
+/* Submit Button */
+#submit {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #0056b3, #003d82);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+}
+
+button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .form-container {
+        width: 90%;
+    }
+}
