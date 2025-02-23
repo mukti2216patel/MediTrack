@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Equipments - MediTrack</title>
-  
-    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Required Libraries -->
+    <script src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.candy.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body class="w-full min-h-screen bg-gray-100 flex flex-row text-gray-800">
-    <div class="w-1/4 min-h-screen bg-white flex flex-col gap-[50px] text-black shadow-2xl">
 
+    <!-- Sidebar -->
+    <div class="w-1/4 min-h-screen bg-white flex flex-col gap-[50px] text-black shadow-2xl">
         <div id="medi" class="logo ml-4 mt-6 flex items-center gap-2">
             <i class="ri-heart-pulse-fill text-red-500 text-4xl"></i>
             <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">MediTrack</span>
@@ -60,6 +65,101 @@
                 <div class="text-xl font-bold">About</div>
             </div>
         </div>
+    </div>  
+
+    
+
+
+
+
+    
+
+
+
+
+
+
+    <!-- Graph inside a White Card -->
+<div class="bg-white shadow-md rounded-lg m-8 p-4 w-[600px] h-[400px] flex justify-center items-center">
+    <canvas id="lineChart"></canvas>
+</div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('lineChart').getContext('2d');
+    
+        const labels = ['Diagnostic', 'Therapeutic', 'Surgical', 'Monitoring', 'Others'];
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'Equipment Quantity',
+            data: [650, 594, 804, 814, 565], // Sample values
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: true
+          }]
+        };
+    
+        const config = {
+          type: 'line',
+          data: data,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                title: { display: true, text: 'Equipment' }
+              },
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Equipment Quantity' }
+              }
+            }
+          }
+        };
+    
+        new Chart(ctx, config);
+      });
+    </script>
+
+
+
+   <!-- Equipment Summary Cards -->
+<div class="grid grid-cols-2 gap-x-5 gap-y-5 ml-4 mt-14 h-[300px]">
+    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
+
+        <!-- total Equipments -->
+        <h1 class="text-lg font-semibold text-gray-700">Total Equipments</h1>
+        <h3 class="text-2xl font-bold text-red-500">200</h3>
+
     </div>
+    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
+
+        <!-- Available -->
+        <h1 class="text-lg font-semibold text-gray-700">Available</h1>
+        <h3 class="text-2xl font-bold text-green-500">198</h3>
+
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
+
+        <!-- load stock  -->
+        <h1 class="text-lg font-semibold text-gray-700">Load Stock</h1>
+        <h3 class="text-2xl font-bold text-blue-500">1</h3>
+
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
+
+        <!-- Expired -->
+        <h1 class="text-lg font-semibold text-gray-700">Expired</h1>
+        <h3 class="text-2xl font-bold text-red-700">1</h3>
+
+
+    </div>
+</div>
+
+
+
 </body>
 </html>
