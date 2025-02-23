@@ -298,18 +298,13 @@ router.get("/profile", isLoggedIn, (req, res) => {
   res.render("profile", { user: req.user });
 });
 
-router.post("/profile", (req, res) => {
-  res.redirect("/profile");
-});
-
 function isLoggedIn(req, res, next) {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).send("Access Denied");
+    return res.redirect("/login");  // Redirect to login if no token
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    console.log("Decoded JWT:", decoded);
     req.user = {
       _id: decoded.id, 
       Email: decoded.Email, 
@@ -317,9 +312,10 @@ function isLoggedIn(req, res, next) {
     next();
   } catch (err) {
     console.error("Error decoding JWT:", err);
-    return res.status(400).send("Invalid Token");
+    return res.redirect("/login");  // Redirect to login on token error
   }
 }
+
 
 router.get("/logout", (req, res) => {
   res.clearCookie("token");
