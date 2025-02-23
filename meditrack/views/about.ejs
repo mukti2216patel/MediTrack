@@ -4,37 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Equipment - MediTrack</title>
-    
+    <title>About MediTrack - MediTrack</title>
+
+    <!-- Remix Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
-<body class="w-full min-h-screen bg-gray-100 flex flex-row text-gray-800">
+<body class="w-full min-h-screen flex flex-row items-center text-gray-800">
 
-    <% include partials/header %> 
-    <div class="w-3/4 min-h-screen p-10 bg-gray-50 rounded-xl shadow-lg">
-        <h1 class="text-5xl font-extrabold text-red-600 mb-6 inline-block">About MediTrack
-        </h1>
-        <div
-            class="bg-white rounded-xl shadow-md p-8 transition-transform transform hover:scale-105 hover:shadow-xl border-t-4 border-red-400">
-            <h2 class="text-3xl font-extrabold mb-4 text-red-600">Our Vision</h2>
-            <p class="text-lg text-gray-700 mb-4 leading-relaxed">To revolutionize healthcare management with technology
-                that ensures efficiency and reliability.</p>
+    <% include partials/header %>
 
-            <h2 class="text-3xl font-extrabold mb-4 text-red-600">Our Mission</h2>
-            <p class="text-lg text-gray-700 mb-4 leading-relaxed">Providing hospitals with advanced tools to manage
-                equipment, reminders, and resources effectively.</p>
-
-            <h2 class="text-3xl font-extrabold mb-4 text-red-600">Contact Us</h2>
-            <p class="text-gray-700 mb-2"><strong>Email:</strong> contact@meditrack.com</p>
-            <p class="text-gray-700 mb-2"><strong>Phone:</strong> +1 234 567 890</p>
-            <p class="text-gray-700"><strong>Address:</strong> 123 Health St, MedCity, Country</p>
+    <div class="w-full p-6">
+        <h1 class="text-6xl font-extrabold text-red-700 mb-10 text-center">About MediTrack</h1>
+    
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    
+            <div
+                class="bg-white rounded-3xl p-8 shadow-gray-400  shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
+                <div class="flex items-center mb-4">
+                    <i class="ri-eye-line text-4xl text-red-600 mr-4"></i>
+                    <h2 class="text-3xl font-extrabold text-red-600">Our Vision</h2>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    To revolutionize healthcare management with technology that ensures efficiency and reliability.
+                </p>
+            </div>
+    
+            <div
+                class="bg-white rounded-3xl shadow-md shadow-gray-400 p-8 hover:shadow-lg transition-transform transform hover:scale-105">
+                <div class="flex items-center mb-4">
+                    <i class="ri-rocket-line text-4xl text-red-600 mr-4"></i>
+                    <h2 class="text-3xl font-extrabold text-red-600">Our Mission</h2>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Providing hospitals with advanced tools to manage equipment, reminders, and resources effectively.
+                </p>
+            </div>
+    
+            <div
+                class="bg-white rounded-3xl p-8 shadow-gray-400  shadow-md hover:shadow-lg transition-transform transform hover:scale-103 col-span-1 md:col-span-2">
+                <div class="flex items-center mb-4">
+                    <i class="ri-contacts-line text-4xl text-red-600 mr-4"></i>
+                    <h2 class="text-3xl font-extrabold text-red-600">Contact Us</h2>
+                </div>
+                <p class="text-gray-700 mb-2"><strong>Email:</strong> contact@meditrack.com</p>
+                <p class="text-gray-700 mb-2"><strong>Phone:</strong> +1 234 567 890</p>
+                <p class="text-gray-700"><strong>Address:</strong> 123 Health St, MedCity, Country</p>
+            </div>
+    
         </div>
     </div>
-
-
+    
 </body>
 
 </html>

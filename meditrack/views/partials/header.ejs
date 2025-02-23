@@ -1,63 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-</head>
 <body>
-    <div class="w-1/4 min-h-screen bg-white flex flex-col gap-[50px] text-black shadow-2xl">
-        <div id="medi" class="logo ml-4 mt-6 flex items-center gap-2">
-            <i class="ri-heart-pulse-fill text-red-500 text-4xl"></i>
-            <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700">MediTrack</span>
-        </div>
-        
-        <div class="flex flex-col text-gray-600 mt-4">
-            <a href="/show">
-                <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                    <i class="ri-eye-line text-2xl text-red-500 group-hover:text-white"></i>
-                    <div class="text-xl font-bold">Equipments</div>
-                </div>
-            </a>
-            <a href="/reminder">
-                <div class="flex flex-row gap-[25px] py-4 justify-start items-center ml-3 rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                    <i class="ri-error-warning-line text-2xl text-red-500 group-hover:text-white"></i>
-                    <div class="text-xl font-bold">Reminders</div>
-                </div>
-            </a>
-            <a href="/update">
-                <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                    <i class="ri-refresh-line text-2xl text-red-500 group-hover:text-white"></i>
-                    <div class="text-xl font-bold">Update</div>
-                </div>
-            </a>
-            <a href="/add">
-                <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                    <i class="ri-add-large-line text-2xl text-red-500 group-hover:text-white"></i>
-                    <div class="text-xl font-bold">Add Equipment</div>
-                </div>
-            </a>
-            <a href="/record">
-                <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                    <i class="ri-folder-history-fill text-2xl text-red-500 group-hover:text-white"></i>
-                    <div class="text-xl font-bold">Record Usage</div>
-                </div>
-            </a>
-            <a href="/profile">
-                <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                    <i class="ri-user-fill text-2xl text-red-500 group-hover:text-white"></i>
-                    <div class="text-xl font-bold">Hospital Profile</div>
-                </div>
-            </a>
-            <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
-                <i class="ri-mail-fill text-2xl text-red-500 group-hover:text-white"></i>
-                <div class="text-xl font-bold">About</div>
+    <div class="w-1/4 min-h-screen bg-white flex flex-col justify-between gap-[50px] text-black shadow-2xl">
+        <!-- Logo -->
+        <div>
+            <div id="medi" class="logo ml-4 mt-6 flex items-center gap-2 transition-all duration-300 hover:scale-105">
+                <i class="ri-heart-pulse-fill text-red-500 text-4xl mb-4"></i>
+                <span class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700 mb-5">MediTrack</span>
+            </div>
+         
+            
+            <div class="flex flex-col text-gray-600 mt-2">
+                <a href="/show">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-eye-line text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">Equipments</div>
+                    </div>
+                </a>
+                <a href="/reminder">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start items-center ml-3 rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-error-warning-line text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">Reminders</div>
+                    </div>
+                </a>
+                <a href="/update">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-refresh-line text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">Update</div>
+                    </div>
+                </a>
+                <a href="/add">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-add-large-line text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">Add Equipment</div>
+                    </div>
+                </a>
+                <a href="/record">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-folder-history-fill text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">Record Usage</div>
+                    </div>
+                </a>
+                <a href="/profile">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-user-fill text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">Hospital Profile</div>
+                    </div>
+                </a>
+                <a href="/about">
+                    <div class="flex flex-row gap-[25px] py-4 justify-start ml-3 items-center rounded-md transition-all duration-300 ease-in-out hover:bg-red-500 hover:text-white hover:scale-105 group">
+                        <i class="ri-mail-fill text-2xl text-red-500 group-hover:text-white"></i>
+                        <div class="text-xl font-bold">About</div>
+                    </div>
+                </a>
             </div>
         </div>
+        <div class="m-4">
+            <button class="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition duration-300 flex items-center justify-center gap-2">
+                <i class="ri-logout-box-r-line text-2xl"></i>
+                <a href="/logout">
+                    <span class="text-xl font-bold">Logout</span>
+                </a>
+            </button>
+        </div>
     </div>
-    
 </body>
-</html>

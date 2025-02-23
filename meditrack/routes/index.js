@@ -63,6 +63,7 @@ router.post("/register", async (req, res) => {
     res.cookie("token", token);
     res.redirect("/profile");
   } catch (err) {
+    console.log(err);
     res.redirect("/register");
   }
 });
@@ -294,14 +295,63 @@ router.post("/search", isLoggedIn, async (req, res) => {
   }
 });
 
-router.get("/profile", isLoggedIn, (req, res) => {
-  res.render("profile", { user: req.user });
+router.get("/profile", isLoggedIn, async (req, res) => {
+  try {
+    const hospital = await HospitalModel.findById(req.user._id).populate("equipments");
+
+    if (!hospital) {
+      return res.status(404).send("Hospital not found");
+    }
+
+    const today = new Date();
+    const totalequi = hospital.equipments;
+    
+    // Filter active equipment (not expired)
+    const activeEquipments = hospital.equipments.filter((equipment) => {
+      return !equipment.DateExpired || new Date(equipment.DateExpired) >= today;
+    });
+
+    // Filter expired equipment
+    const expiredEquipments = hospital.equipments.filter((equipment) => {
+      return equipment.DateExpired && new Date(equipment.DateExpired) < today;
+    });
+
+    // Filter low stock equipment (stock less than or equal to 5)
+    const lowStockEquipments = hospital.equipments.filter((equipment) => {
+      return equipment.Quantity <= 5;
+    });
+
+    const categoryCount = {
+      Diagnostic: await EquipmentModel.countDocuments({ Category: { $in: ['Diagnostic'] } }),
+      Therapeutic: await EquipmentModel.countDocuments({ Category: { $in: ['Therapeutic'] } }),
+      Surgical: await EquipmentModel.countDocuments({ Category: { $in: ['Surgical'] } }),
+      Monitoring: await EquipmentModel.countDocuments({ Category: { $in: ['Monitoring'] } }),
+      Others: await EquipmentModel.countDocuments({ Category: { $in: ['Others'] } })
+  };
+
+  console.log(categoryCount);
+  console.log(categoryCount.Diagnostic);
+  console.log(categoryCount.Therapeutic);
+
+    res.render("profile", {
+      hospital,
+      totalequi,
+      activeEquipments,
+      expiredEquipments,
+      lowStockEquipments,
+      categoryCount
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error loading profile data");
+  }
 });
+
 
 function isLoggedIn(req, res, next) {
   const token = req.cookies.token;
   if (!token) {
-    return res.redirect("/login");  // Redirect to login if no token
+    return res.redirect("/login");  
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
@@ -316,6 +366,9 @@ function isLoggedIn(req, res, next) {
   }
 }
 
+router.get('/about' , (req , res)=>{
+  res.render('about');
+})
 
 router.get("/logout", (req, res) => {
   res.clearCookie("token");

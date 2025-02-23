@@ -18,48 +18,40 @@
 
         <h1 class="text-4xl font-bold text-gray-800 mb-6">Reminders & Alerts</h1>
 
+        <!-- Low Stock Alerts Section -->
         <div id="lowStockAlerts" class="mb-8">
-            <% if (lowStockEquipments.length> 0) { %>
+            <% if (lowStockEquipments.length > 0) { %>
                 <% lowStockEquipments.forEach(function(equipment) { %>
-                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 rounded-lg shadow-md mb-8">
-                        <i class="ri-alert-line text-3xl mr-4"></i>
-                        <div>
+                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 rounded-lg shadow-md mb-3 flex items-center space-x-4">
+                        <i class="ri-alert-line text-3xl"></i>
+                        <div class="flex-1">
                             <p class="font-bold text-xl">Low Stock Alerts</p>
-                            <p>Equipment <strong>
-                                    <%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)
-                                </strong> is running low on stock. Only <strong>
-                                    <%= equipment.Quantity %>
-                                </strong> left!</p>
+                            <p class="whitespace-nowrap">Equipment <strong><%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)</strong> is running low on stock. Only <strong><%= equipment.Quantity %></strong> left!</p>
                         </div>
                     </div>
-                    <% }) %>
-                        <% } else { %>
-                            <p class="text-gray-500">No low stock alerts at the moment.</p>
-                            <% } %>
+                <% }) %>
+            <% } else { %>
+                <p class="text-gray-500">No low stock alerts at the moment.</p>
+            <% } %>
         </div>
 
         <!-- Expired Equipment Section -->
         <div id="expiredEquipments" class="mb-8">
-            <% if (expiredEquipments.length> 0) { %>
+            <% if (expiredEquipments.length > 0) { %>
                 <% expiredEquipments.forEach(function(equipment) { %>
-                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md mb-8">
-                        <i class="ri-error-warning-line text-3xl mr-4"></i>
-                        <div>
+                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md mb-4 flex items-center space-x-4">
+                        <i class="ri-error-warning-line text-3xl"></i>
+                        <div class="flex-1">
                             <p class="font-bold text-xl">Expired Equipment</p>
-                            <p>Equipment <strong>
-                                    <%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)
-                                </strong> expired on <strong>
-                                    <%= new Date(equipment.DateExpired).toLocaleDateString() %>
-                                </strong>. Please replace it.</p>
+                            <p class="whitespace-nowrap">Equipment <strong><%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)</strong> expired on <strong><%= new Date(equipment.DateExpired).toLocaleDateString() %></strong>. Please replace it.</p>
                         </div>
                     </div>
-                    <% }) %>
-                        <% } else { %>
-                            <p class="text-gray-500">No expired equipment alerts at the moment.</p>
-                            <% } %>
+                <% }) %>
+            <% } else { %>
+                <p class="text-gray-500">No expired equipment alerts at the moment.</p>
+            <% } %>
         </div>
     </div>
-
 </body>
 
 </html>
