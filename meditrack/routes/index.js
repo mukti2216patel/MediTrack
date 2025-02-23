@@ -73,20 +73,16 @@ router.post("/login", async (req, res) => {
     const hospital = await HospitalModel.findOne({
       HospitalId: Number(HospitalId),
     });
-
     if (!hospital) {
-      return res.status(400).send("Hospital not found");
+      return res.redirect('/register');
     }
-
     if (!hospital.Password) {
-      return res.status(500).send("Hospital password not found in database");
+      return res.redirect('/register');
     }
-
     const isMatch = await bcrypt.compare(Password, hospital.Password);
     if (!isMatch) {
       return res.status(400).send("Invalid credentials");
     }
-
     const token = jwt.sign(
       { id: hospital._id, Email: hospital.Email },
       JWT_SECRET
@@ -101,7 +97,6 @@ router.get("/show", isLoggedIn, async (req, res) => {
   if (!req.user) {
     return res.status(401).send("User is not authenticated");
   }
-
   try {
     console.log(req.user);
     console.log(req.user._id);
