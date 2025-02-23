@@ -67,97 +67,127 @@
         </div>
     </div>  
 
+    <!-- profile -->
+    <div class="bg-white shadow-lg rounded-xl p-6 w-[500px] border border-gray-200 h-auto ml-4 mt-6">
+        <!-- Profile Photo & Header -->
+        <div class="flex flex-col items-center">
+            <img src="profile.jpg" alt="Hospital Profile" 
+                class="w-24 h-24 rounded-full shadow-md border-4 border-blue-400">
+            <h2 class="text-2xl font-bold mt-3 text-blue-600">Sunrise Multispeciality Hospital</h2>
+            <p class="text-gray-500 italic">"Healthcare That Cares"</p>
+        </div>
     
-
-
-
-
+        <!-- Hospital Details -->
+        <div class="mt-6 space-y-3 text-gray-700">
+            <div class="flex items-center">
+                <span class="font-semibold w-40">🏥 Type:</span> <span>Multispeciality</span>
+            </div>
+            <div class="flex items-center">
+                <span class="font-semibold w-40">📍 Address:</span> 
+                <span>123, Health Street, New Delhi, India</span>
+            </div>
+            <div class="flex items-center">
+                <span class="font-semibold w-40">📞 Contact No.:</span> <span>+91 9876543210</span>
+            </div>
+            <div class="flex items-center">
+                <span class="font-semibold w-40">📧 Email:</span> 
+                <span class="text-blue-500 underline">info@sunrisehospital.com</span>
+            </div>
+            <div class="flex items-center">
+                <span class="font-semibold w-40">👨‍⚕️ Admin Name:</span> <span>Dr. Rajesh Mehta</span>
+            </div>
+            <div class="flex items-center">
+                <span class="font-semibold w-40">🆔 License ID:</span> <span>HSP-78965432</span>
+            </div>
+            <div class="flex items-center">
+                <span class="font-semibold w-40">📅 Established:</span> <span>1995</span>
+            </div>
+            <div class="flex items-start space-x-2">
+                <span class="font-semibold w-40 flex-shrink-0">✅ Description:</span> 
+                <span class="text-justify flex-grow">
+                    A leading multispeciality hospital providing world-class healthcare services with advanced technology and experienced medical professionals. Our mission is to offer compassionate care, ensuring patient safety and satisfaction.
+                </span>
+            </div>
+            
+            
+        </div>
+    </div>
     
-
-
-
-
+    
 
 
     <!-- Graph inside a White Card -->
-<div class="bg-white shadow-md rounded-lg m-8 p-4 w-[600px] h-[400px] flex justify-center items-center">
-    <canvas id="lineChart"></canvas>
-</div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const ctx = document.getElementById('lineChart').getContext('2d');
-    
-        const labels = ['Diagnostic', 'Therapeutic', 'Surgical', 'Monitoring', 'Others'];
-        const data = {
-          labels: labels,
-          datasets: [{
-            label: 'Equipment Quantity',
-            data: [650, 594, 804, 814, 565], // Sample values
-            borderColor: 'rgb(75, 192, 192)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderWidth: 2,
-            tension: 0.3,
-            fill: true
-          }]
-        };
-    
-        const config = {
-          type: 'line',
-          data: data,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                title: { display: true, text: 'Equipment' }
-              },
-              y: {
-                beginAtZero: true,
-                title: { display: true, text: 'Equipment Quantity' }
-              }
-            }
-          }
-        };
-    
-        new Chart(ctx, config);
-      });
-    </script>
-
-
-
-   <!-- Equipment Summary Cards -->
-<div class="grid grid-cols-2 gap-x-5 gap-y-5 ml-4 mt-14 h-[300px]">
-    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
-
-        <!-- total Equipments -->
+     <div>
+        <div class="bg-white shadow-md rounded-lg m-8 p-4 w-[600px] h-[400px] flex justify-center items-center">
+            <canvas id="lineChart"></canvas>
+        </div>
+        
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                const ctx = document.getElementById('lineChart').getContext('2d');
+            
+                const labels = ['Diagnostic', 'Therapeutic', 'Surgical', 'Monitoring', 'Others'];
+                const data = {
+                  labels: labels,
+                  datasets: [{
+                    label: 'Equipment Quantity',
+                    data: [650, 594, 804, 814, 565], // Sample values
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                  }]
+                };
+            
+                const config = {
+                  type: 'line',
+                  data: data,
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                      x: {
+                        title: { display: true, text: 'Equipment' }
+                      },
+                      y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Equipment Quantity' }
+                      }
+                    }
+                  }
+                };
+            
+                new Chart(ctx, config);
+              });
+            </script>
+        
+        
+        
+<!-- Equipment Summary Cards -->
+<div class="grid grid-cols-2 gap-y-2 gap-x-0 ml-8 h-[300px]">
+    <div class="bg-white shadow-md rounded-lg p-2 w-60 h-[130px] flex flex-col justify-center items-center">
+        <!-- Total Equipments -->
         <h1 class="text-lg font-semibold text-gray-700">Total Equipments</h1>
         <h3 class="text-2xl font-bold text-red-500">200</h3>
-
     </div>
-    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
-
+    <div class="bg-white shadow-md rounded-lg p-2 w-60 h-[130px] flex flex-col justify-center items-center">
         <!-- Available -->
         <h1 class="text-lg font-semibold text-gray-700">Available</h1>
         <h3 class="text-2xl font-bold text-green-500">198</h3>
-
     </div>
-    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
-
-        <!-- load stock  -->
+    <div class="bg-white shadow-md rounded-lg p-2 w-60 h-[130px] flex flex-col justify-center items-center">
+        <!-- Load Stock -->
         <h1 class="text-lg font-semibold text-gray-700">Load Stock</h1>
         <h3 class="text-2xl font-bold text-blue-500">1</h3>
-
     </div>
-    <div class="bg-white shadow-md rounded-lg p-4 w-48 h-[150px] flex flex-col justify-center items-center">
-
+    <div class="bg-white shadow-md rounded-lg p-2 w-60 h-[130px] flex flex-col justify-center items-center">
         <!-- Expired -->
         <h1 class="text-lg font-semibold text-gray-700">Expired</h1>
         <h3 class="text-2xl font-bold text-red-700">1</h3>
-
-
     </div>
 </div>
+
 
 
 
