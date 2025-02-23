@@ -63,36 +63,41 @@
         </div>
     </div>
 
-<div class="w-3/4 min-h-screen p-10">
-    <h1 class="text-4xl font-bold text-gray-800 mb-6">Reminders & Alerts</h1>
-    <% if (lowStockEquipments.length > 0) { %>
-        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-6 rounded-lg shadow-md">
-            <i class="ri-alert-line text-3xl mr-4"></i>
-            <div>
-                <p class="font-bold text-xl">Low Stock Alerts</p>
-                <% lowStockEquipments.forEach(function(equipment) { %>
-                    <p>Equipment <strong><%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)</strong> is running low on stock. Only <strong><%= equipment.Quantity %></strong> left!</p>
-                <% }) %>
-            </div>
+    <div class="w-3/4 min-h-screen p-10">
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Reminders & Alerts</h1>
+        <div id="lowStockAlerts" class="mb-8">
+            <% if (lowStockEquipments.length > 0) { %>
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 rounded-lg shadow-md">
+                    <i class="ri-alert-line text-3xl mr-4"></i>
+                    <div>
+                        <p class="font-bold text-xl">Low Stock Alerts</p>
+                        <% lowStockEquipments.forEach(function(equipment) { %>
+                            <p>Equipment <strong><%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)</strong> is running low on stock. Only <strong><%= equipment.Quantity %></strong> left!</p>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } else { %>
+                <p class="text-gray-500">No low stock alerts at the moment.</p>
+            <% } %>
         </div>
-    <% } else { %>
-        <p class="text-gray-500">No low stock alerts at the moment.</p>
-    <% } %>
 
-    <% if (expiredEquipments.length > 0) { %>
-        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg shadow-md">
-            <i class="ri-error-warning-line text-3xl mr-4"></i>
-            <div>
-                <p class="font-bold text-xl">Expired Equipment</p>
-                <% expiredEquipments.forEach(function(equipment) { %>
-                    <p>Equipment <strong><%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)</strong> expired on <strong><%= new Date(equipment.DateExpired).toLocaleDateString() %></strong>. Please replace it.</p>
-                <% }) %>
-            </div>
+        <!-- Expired Equipment Section -->
+        <div id="expiredEquipments" class="mb-8">
+            <% if (expiredEquipments.length > 0) { %>
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md">
+                    <i class="ri-error-warning-line text-3xl mr-4"></i>
+                    <div>
+                        <p class="font-bold text-xl">Expired Equipment</p>
+                        <% expiredEquipments.forEach(function(equipment) { %>
+                            <p>Equipment <strong><%= equipment.EquipmentName %> (ID: <%= equipment.EquipmentId %>)</strong> expired on <strong><%= new Date(equipment.DateExpired).toLocaleDateString() %></strong>. Please replace it.</p>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } else { %>
+                <p class="text-gray-500">No expired equipment alerts at the moment.</p>
+            <% } %>
         </div>
-    <% } else { %>
-        <p class="text-gray-500">No expired equipment alerts at the moment.</p>
-    <% } %>
-</div>
+    </div>
 
 </body>
 
