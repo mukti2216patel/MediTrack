@@ -69,13 +69,19 @@
         <h1 class="text-4xl font-bold text-gray-800 mb-6">All Equipments of Your Hospital</h1>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <% if (user.equipments && user.equipments.length > 0) { %>
-                <% user.equipments.forEach(function(u) { %>
+                <% 
+                    const today = new Date(); 
+                    const activeEquipments = user.equipments.filter(equipment => {
+                        return !equipment.DateExpired || new Date(equipment.DateExpired) >= today;
+                    });
+                %>
+                <% activeEquipments.forEach(function(u) { %>
                     <div class="bg-white rounded-xl shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-xl border-t-4 border-green-500">
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">
                             <%= u.EquipmentName %>
                         </h2>
                         <p class="text-gray-700 mb-2"><strong class="font-semibold">ID:</strong> <%= u.EquipmentId %></p>
-                        <p class="text-gray-700 mb-2"><strong class="font-semibold">Category:</strong> <%= u.Category.join(', ') %></p> <!-- Display category as a list if multiple -->
+                        <p class="text-gray-700 mb-2"><strong class="font-semibold">Category:</strong> <%= u.Category.join(', ') %></p>
                         <p class="text-gray-700 mb-2"><strong class="font-semibold">Description:</strong> <%= u.Description %></p>
                         <p class="text-gray-700 mb-2"><strong class="font-semibold">Quantity:</strong> <%= u.Quantity %></p>
                         <p class="text-gray-700 mb-2"><strong class="font-semibold">Manufacturer:</strong> <%= u.Manufacturer || 'N/A' %></p>
@@ -83,13 +89,10 @@
                     </div>
                 <% }) %>
             <% } else { %>
-                <p class="text-lg text-gray-600">No equipment found for this hospital.</p>
+                <p class="text-lg text-gray-600">No active equipment found for this hospital.</p>
             <% } %>
-        </div>
-        
         </div>
     </div>
 
 </body>
-
 </html>

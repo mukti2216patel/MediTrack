@@ -54,10 +54,17 @@ const EquipmentSchema = new mongoose.Schema({
         required: true,
         index: true
     },
-    UsageDates: {
-        type: [Date], // Array of dates to track each usage
-        default: []
-    }
+    UsageDates: [{
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        quantityUsed: {
+            type: Number,
+            required: true,
+            min: 1
+        }
+    }],    
 }, { timestamps: true });
 
 module.exports = mongoose.model("Equipment", EquipmentSchema);

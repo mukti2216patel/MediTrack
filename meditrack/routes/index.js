@@ -97,7 +97,6 @@ router.post("/login", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 router.get("/show", isLoggedIn, async (req, res) => {
   if (!req.user) {
     return res.status(401).send("User is not authenticated");
@@ -106,34 +105,43 @@ router.get("/show", isLoggedIn, async (req, res) => {
   try {
     console.log(req.user);
     console.log(req.user._id); 
+    const today = new Date();
     let user = await HospitalModel.findById(req.user._id).populate("equipments");
     console.log("User data:", user);
     if (!user) {
       return res.status(404).send("Hospital not found");
     }
-    res.render("show", { user });
+    const activeEquipments = user.equipments.filter(equipment => {
+      return !equipment.DateExpired || new Date(equipment.DateExpired) >= today;
+    });
+    res.render("show", { user, activeEquipments });
   } catch (err) {
     res.status(500).send("Error loading equipment data");
   }
 });
 
+
 router.get("/reminder", isLoggedIn, async (req, res) => {
   try {
     const today = new Date();
-  
+   
     const lowStockEquipments = await EquipmentModel.find({
       HospitalId: req.user._id,
       Quantity: { $lte: 5 },
     });
-    
+
     const expiredEquipments = await EquipmentModel.find({
       HospitalId: req.user._id,
       DateExpired: { $lt: today },
     });
 
+    const activeLowStockEquipments = lowStockEquipments.filter(equipment => {
+      return !expiredEquipments.some(expired => expired._id.toString() === equipment._id.toString());
+    });
+
     res.render("reminder", {
       user: req.user,
-      lowStockEquipments,
+      lowStockEquipments: activeLowStockEquipments,
       expiredEquipments,
     });
   } catch (err) {
@@ -141,6 +149,7 @@ router.get("/reminder", isLoggedIn, async (req, res) => {
     res.status(500).send("Error loading reminder data");
   }
 });
+
 
 
 
@@ -210,9 +219,151 @@ router.get("/reminder", isLoggedIn, (req, res) => {
   res.render("reminder", { user: req.user });
 });
 
-router.get("/update", isLoggedIn, (req, res) => {
-  res.render("update", { user: req.user });
+router.get('/update', async (req, res) => {
+      res.render('update', { equipment: undefined });
 });
+
+
+router.post('/update', isLoggedIn, async (req, res) => {
+  try {
+  
+      const { EquipmentId, EquipmentName, Quantity, Description, DateExpired } = req.body;
+      console.log({ EquipmentId, EquipmentName, Quantity, Description, DateExpired });
+      if (!EquipmentId || !EquipmentName || !Quantity || !Description || !DateExpired) {
+          return res.status(400).json({ message: 'All fields are required' });
+      }
+      const equipment = await EquipmentModel.findOne({
+        EquipmentId , HospitalId:req.user._id
+      })
+      console.log(equipment);
+      equipment.EquipmentName = EquipmentName;
+      equipment.Quantity = Quantity;
+      equipment.Description = Description;
+      equipment.DateExpired = DateExpired;
+      await equipment.save();
+      let hospital = await HospitalModel.findOne({_id:req.user._id});
+      await hospital.save();
+      res.redirect('/show');
+  } catch (error) {
+      console.error('Error updating equipment:', error);
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/update', isLoggedIn, async (req, res) => {
+  try {
+      const { EquipmentId, EquipmentName, Quantity, Description, DateExpired } = req.body;
+      console.log({ EquipmentId, EquipmentName, Quantity, Description, DateExpired });
+
+      if (!EquipmentId || !EquipmentName || !Quantity || !Description || !DateExpired) {
+          return res.status(400).json({ message: 'All fields are required' });
+      }
+
+      const equipment = await EquipmentModel.findOne({
+        EquipmentId,
+        HospitalId: req.user._id
+      });
+
+      if (!equipment) {
+          return res.status(404).json({ message: 'Equipment not found' });
+      }
+
+      const previousQuantity = equipment.Quantity;
+      const newQuantity = Number(Quantity);
+
+      if (newQuantity < previousQuantity) {
+          const quantityUsed = previousQuantity - newQuantity;
+          equipment.UsageDates.push({
+              date: new Date(),
+              quantityUsed
+          });
+      }
+      else if (newQuantity > previousQuantity) {
+          const quantityAdded = newQuantity - previousQuantity;
+          for (let i = 0; i < quantityAdded; i++) {
+              equipment.UsageDates.pop();
+          }
+      }
+
+      equipment.EquipmentName = EquipmentName;
+      equipment.Quantity = newQuantity;
+      equipment.Description = Description;
+      equipment.DateExpired = DateExpired;
+
+      await equipment.save();
+      
+      res.redirect('/show');
+  } catch (error) {
+      console.error('Error updating equipment:', error);
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+router.post('/search', isLoggedIn, async (req, res) => {
+  console.log(req.body);
+  const { EquipmentId } = req.body;
+  console.log(EquipmentId);
+  
+  try {  
+      // Check if user is logged in and get their hospital ID
+      const hospitalId = req.user._id;  // Assuming req.user._id is the HospitalId
+
+      // Search for equipment with both EquipmentId and HospitalId
+      const equipment = await EquipmentModel.findOne({ 
+          EquipmentId, 
+          HospitalId: hospitalId 
+      });
+      
+      console.log(equipment);
+      
+      if (equipment) { 
+          res.render('update', { equipment });  
+      } else {
+          res.render('update', { equipment: undefined });
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error'); 
+  }
+});
+
+
+
+// router.post('/transfer', isLoggedIn, async (req, res) => {
+//   const { EquipmentId, NewHospitalId } = req.body;
+  
+//   try {
+    
+//     let equipment = await EquipmentModel.findOne({ 
+//       EquipmentId: EquipmentId, 
+//       HospitalId: req.user._id  
+//     });
+
+//     if (!equipment) {
+//       return res.status(404).json({ message: 'Equipment not found in this hospital' });
+//     }
+
+//     equipment.HospitalId = NewHospitalId;
+//     await equipment.save();
+
+//     await HospitalModel.findByIdAndUpdate(req.user._id, {
+//       $pull: { equipments: equipment._id }
+//     });
+
+   
+//     await HospitalModel.findByIdAndUpdate(NewHospitalId, {
+//       $push: { equipments: equipment._id }
+//     });
+
+//     res.status(200).json({ message: 'Equipment transferred successfully' });
+//   } catch (error) {
+//     console.error("Error transferring equipment:", error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
 
 router.get("/profile", isLoggedIn, (req, res) => {
   res.render("profile", { user: req.user });
