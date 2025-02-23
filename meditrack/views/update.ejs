@@ -26,32 +26,32 @@
         <% if (equipment) { %>
             <form method="post" action="/update" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl transition-transform duration-300 hover:scale-105">
                 <input type="hidden" name="EquipmentId" value="<%= equipment.EquipmentId %>">
-        
+                
                 <h2 class="text-2xl font-bold mb-4 text-gray-800">Edit Equipment Details</h2>
-        
+                
                 <div class="mb-6">
                     <label class="block text-gray-700 font-semibold mb-2">Equipment Name:</label>
-                    <input type="text" name="EquipmentName" value="<%= equipment.name %>" 
+                    <input type="text" name="EquipmentName" value="<%= equipment.EquipmentName || '' %>" 
                         class="border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ease-in-out hover:shadow-md" required>
                 </div>
-        
+                
                 <div class="mb-6">
                     <label class="block text-gray-700 font-semibold mb-2">Quantity:</label>
-                    <input type="number" name="Quantity" value="<%= equipment.quantity %>"
+                    <input type="number" name="Quantity" value="<%= equipment.Quantity || 0 %>"
                         class="border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ease-in-out hover:shadow-md" required>
                 </div>
-        
+                
                 <div class="mb-6">
                     <label class="block text-gray-700 font-semibold mb-2">Description:</label>
-                    <textarea name="Description" class="border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ease-in-out hover:shadow-md" required><%= equipment.description %></textarea>
+                    <textarea name="Description" class="border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ease-in-out hover:shadow-md" required><%= equipment.Description || '' %></textarea>
                 </div>
-        
+                
                 <div class="mb-6">
                     <label class="block text-gray-700 font-semibold mb-2">Date Expired:</label>
                     <input type="date" name="DateExpired" value="<%= equipment.DateExpired ? equipment.DateExpired.toISOString().split('T')[0] : '' %>"
                         class="border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ease-in-out hover:shadow-md" required>
                 </div>
-        
+                
                 <div class="flex gap-4">
                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
                         Update
@@ -61,12 +61,13 @@
                     </button>
                 </div>
             </form>
+            
             <% } else { %>
                 <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md w-full max-w-2xl">
                     <p class="font-bold text-lg">No equipment found with that ID.</p>
-                    
                 </div>
-            <% } %>            
+            <% } %>
+               
     </div>
 
 </body>

@@ -322,16 +322,27 @@ router.get("/profile", isLoggedIn, async (req, res) => {
     });
 
     const categoryCount = {
-      Diagnostic: await EquipmentModel.countDocuments({ Category: { $in: ['Diagnostic'] } }),
-      Therapeutic: await EquipmentModel.countDocuments({ Category: { $in: ['Therapeutic'] } }),
-      Surgical: await EquipmentModel.countDocuments({ Category: { $in: ['Surgical'] } }),
-      Monitoring: await EquipmentModel.countDocuments({ Category: { $in: ['Monitoring'] } }),
-      Others: await EquipmentModel.countDocuments({ Category: { $in: ['Others'] } })
+      Diagnostic: await EquipmentModel.countDocuments({
+          HospitalId: req.user._id,
+          Category: { $in: ['Diagnostic'] }
+      }),
+      Therapeutic: await EquipmentModel.countDocuments({
+          HospitalId: req.user._id,
+          Category: { $in: ['Therapeutic'] }
+      }),
+      Surgical: await EquipmentModel.countDocuments({
+          HospitalId: req.user._id,
+          Category: { $in: ['Surgical'] }
+      }),
+      Monitoring: await EquipmentModel.countDocuments({
+          HospitalId: req.user._id,
+          Category: { $in: ['Monitoring'] }
+      }),
+      Others: await EquipmentModel.countDocuments({
+          HospitalId: req.user._id,
+          Category: { $in: ['Others'] }
+      })
   };
-
-  console.log(categoryCount);
-  console.log(categoryCount.Diagnostic);
-  console.log(categoryCount.Therapeutic);
 
     res.render("profile", {
       hospital,
