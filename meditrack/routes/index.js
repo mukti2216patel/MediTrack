@@ -117,6 +117,32 @@ router.get("/show", isLoggedIn, async (req, res) => {
   }
 });
 
+router.get("/reminder", isLoggedIn, async (req, res) => {
+  try {
+    const today = new Date();
+  
+    const lowStockEquipments = await EquipmentModel.find({
+      HospitalId: req.user._id,
+      Quantity: { $lte: 5 },
+    });
+    
+    const expiredEquipments = await EquipmentModel.find({
+      HospitalId: req.user._id,
+      DateExpired: { $lt: today },
+    });
+
+    res.render("reminder", {
+      user: req.user,
+      lowStockEquipments,
+      expiredEquipments,
+    });
+  } catch (err) {
+    console.error("Error fetching reminder data:", err);
+    res.status(500).send("Error loading reminder data");
+  }
+});
+
+
 
 router.get("/add", isLoggedIn, (req, res) => {
   res.render("add", { user: req.user });

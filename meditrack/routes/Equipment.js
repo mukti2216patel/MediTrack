@@ -16,7 +16,7 @@ const EquipmentSchema = new mongoose.Schema({
     Category: {
         type: [String],
         required: true,
-        enum: ['Diagnostic', 'Therapeutic', 'Surgical', 'Life Support', 'Monitoring', 'Medical Laboratory', 'Others'],
+        enum: ['Diagnostic', 'Therapeutic', 'Surgical', 'Monitoring', 'Others'],
     },
     Description: {
         type: String,
