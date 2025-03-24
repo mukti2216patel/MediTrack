@@ -18,7 +18,7 @@ MediTrack is an intelligent **Medicine Inventory & Reminder System** that helps 
 ## 🛠️ Tech Stack
 - **Frontend:** html , css , js , gsap
 - **Backend:** node.js , express.js 
-- **Database:**mongodb
+- **Database:** mongodb
 
 ## 🔧 Installation & Setup
 1. **Clone the Repository:**
