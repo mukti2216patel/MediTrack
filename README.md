@@ -13,7 +13,6 @@ MediTrack is an intelligent **Medicine Inventory & Reminder System** that helps 
 - ⏰ **Smart Reminders** – Notifications for medicine intake and refills.
 - ⚠️ **Expiry & Low Stock Alerts** – Get notified before medicines expire or run out.
 - 📊 **Usage Analytics** – View reports on medicine consumption trends.
-- 🔄 **Automated Refill Suggestions** – Suggests refills based on usage patterns.
 
 ## 🛠️ Tech Stack
 - **Frontend:** html , css , js , gsap
