@@ -13,14 +13,11 @@ MediTrack is an intelligent **Medicine Inventory & Reminder System** that helps 
 - ⏰ **Smart Reminders** – Notifications for medicine intake and refills.
 - ⚠️ **Expiry & Low Stock Alerts** – Get notified before medicines expire or run out.
 - 📊 **Usage Analytics** – View reports on medicine consumption trends.
-- 🔄 **Automated Refill Suggestions** – Suggests refills based on usage patterns.
 
 ## 🛠️ Tech Stack
-- **Frontend:** 
-- **Backend:** 
-- **Database:** 
-- **Notifications:**
-- **Hosting:** 
+- **Frontend:** html , css , js , gsap
+- **Backend:** node.js , express.js 
+- **Database:** mongodb
 
 ## 🔧 Installation & Setup
 1. **Clone the Repository:**
@@ -30,20 +27,12 @@ MediTrack is an intelligent **Medicine Inventory & Reminder System** that helps 
    ```
 2. **Install Dependencies:**
    ```bash
-   npm install  # For React.js frontend
-   pip install -r requirements.txt  # For Python backend (if applicable)
+   npm install  express 
    ```
 3. **Run the Application:**
    ```bash
    npm start  # For frontend
-   python app.py  # For backend
    ```
-
-## 📸 Screenshots
-
-
-## 🌍 Future Enhancements
-
 
 ## 🤝 Contributors
 - **Rojivadiya Tithi** ([GitHub]())
