@@ -34,21 +34,6 @@ MediTrack is an intelligent *Medicine Inventory & Reminder System* that helps us
    git clone https://github.com/mukti2216patel/MediTrack.git
    cd meditrack
    ```
-
-
-
-## 🚀 Future Enhancements
-We plan to enhance *MediTrack* with advanced features to improve user experience and efficiency:
-
-- *🔗 AI-Powered Reminders* – Implement an AI-driven system to analyze user behavior and send smart medication reminders based on patterns and missed doses.
-- *📊 Symptom & Reaction Analysis* – Utilize AI to analyze recorded symptoms and provide insights or possible health recommendations.
-- *📄 Smart Report Generation* – Enhance PDF reports with AI-based health trend predictions, making it easier for users and doctors to track progress.
-- *🎙 Voice Command Support* – Integrate voice recognition to allow users to log medications and symptoms hands-free.
-- *📡 Cloud Sync & Multi-Device Access* – Enable real-time synchronization so users can access their health records across multiple devices.
-
-These enhancements will make *MediTrack* a more intelligent and user-friendly healthcare companion. Stay tuned! 🚀💊
-
-
 ## 🤝 Contributors
 
 - *Patel Mukti* ([GitHub](https://github.com/mukti2216patel))
