@@ -1,4 +1,4 @@
-# MediTrack – Medicine Inventory & Reminder System
+ MediTrack – Medicine Inventory & Reminder System
 
 ## 🏆 Project for DuHacks 4.0
 ### Built by:  Patel Mukti & Rojivadiya Tithi
@@ -34,8 +34,8 @@ MediTrack is an intelligent *Medicine Inventory & Reminder System* that helps us
    git clone https://github.com/mukti2216patel/MediTrack.git
    cd meditrack
    ```
-   
-   
+
+
 
 ## 🚀 Future Enhancements
 We plan to enhance *MediTrack* with advanced features to improve user experience and efficiency:
