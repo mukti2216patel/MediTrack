@@ -11,8 +11,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// Secret key for JWT
-const JWT_SECRET = "your_secret_key"; // Change this to a secure key in production
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,23 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static files (e.g., images, stylesheets, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// JWT-based authentication middleware (for protected routes)
-function isLoggedIn(req, res, next) {
-  const token = req.cookies.token; // Get the token from cookies
-
-  if (!token) {
-    return res.status(401).send("Access Denied");
-  }
-
-  try {
-    // Verify the JWT token
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;  // Attach decoded user info to the request
-    next();
-  } catch (err) {
-    res.status(400).send("Invalid Token");
-  }
-}
 
 // Use the routers (index and users)
 app.use('/', indexRouter);

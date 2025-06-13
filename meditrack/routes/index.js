@@ -5,8 +5,11 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const HospitalModel = require("./users");
 const EquipmentModel = require("./Equipment");
+const dotenv = require('dotenv');
+dotenv.config();
 
-const JWT_SECRET = "your_secret_key";
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 router.get("/", (req, res) => {
   res.render("login");
@@ -75,10 +78,10 @@ router.post("/login", async (req, res) => {
       HospitalId: Number(HospitalId),
     });
     if (!hospital) {
-      return res.redirect('/register');
+      return res.redirect("/register");
     }
     if (!hospital.Password) {
-      return res.redirect('/register');
+      return res.redirect("/register");
     }
     const isMatch = await bcrypt.compare(Password, hospital.Password);
     if (!isMatch) {
@@ -121,29 +124,42 @@ router.get("/show", isLoggedIn, async (req, res) => {
 router.get("/reminder", isLoggedIn, async (req, res) => {
   try {
     const today = new Date();
+    const soon = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days ahead
+
     const lowStockEquipments = await EquipmentModel.find({
       HospitalId: req.user._id,
       Quantity: { $lte: 5 },
     });
+
     const expiredEquipments = await EquipmentModel.find({
       HospitalId: req.user._id,
       DateExpired: { $lt: today },
     });
+
     const activeLowStockEquipments = lowStockEquipments.filter((equipment) => {
       return !expiredEquipments.some(
         (expired) => expired._id.toString() === equipment._id.toString()
       );
     });
+
+    const expiringSoonEquipments = await EquipmentModel.find({
+      HospitalId: req.user._id,
+      DateExpired: { $gt: today, $lte: soon }, // ✅ correct field name
+    });
+
     res.render("reminder", {
       user: req.user,
       lowStockEquipments: activeLowStockEquipments,
       expiredEquipments,
+      expiringSoonEquipments,
     });
   } catch (err) {
     console.error("Error fetching reminder data:", err);
     res.status(500).send("Error loading reminder data");
   }
 });
+
+
 
 router.get("/add", isLoggedIn, (req, res) => {
   res.render("add", { user: req.user });
@@ -263,11 +279,12 @@ router.post("/update", isLoggedIn, async (req, res) => {
 
 router.get("/record", isLoggedIn, async (req, res) => {
   const hospitalId = req.user._id;
-  const equipments = await EquipmentModel.find({ HospitalId: hospitalId }).select('EquipmentId EquipmentName UsageDates');
+  const equipments = await EquipmentModel.find({
+    HospitalId: hospitalId,
+  }).select("EquipmentId EquipmentName UsageDates");
   console.log(equipments);
   res.render("record", { equipments });
 });
-
 
 router.post("/search", isLoggedIn, async (req, res) => {
   console.log(req.body);
@@ -297,7 +314,9 @@ router.post("/search", isLoggedIn, async (req, res) => {
 
 router.get("/profile", isLoggedIn, async (req, res) => {
   try {
-    const hospital = await HospitalModel.findById(req.user._id).populate("equipments");
+    const hospital = await HospitalModel.findById(req.user._id).populate(
+      "equipments"
+    );
 
     if (!hospital) {
       return res.status(404).send("Hospital not found");
@@ -305,7 +324,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
 
     const today = new Date();
     const totalequi = hospital.equipments;
-    
+
     // Filter active equipment (not expired)
     const activeEquipments = hospital.equipments.filter((equipment) => {
       return !equipment.DateExpired || new Date(equipment.DateExpired) >= today;
@@ -323,26 +342,26 @@ router.get("/profile", isLoggedIn, async (req, res) => {
 
     const categoryCount = {
       Diagnostic: await EquipmentModel.countDocuments({
-          HospitalId: req.user._id,
-          Category: { $in: ['Diagnostic'] }
+        HospitalId: req.user._id,
+        Category: { $in: ["Diagnostic"] },
       }),
       Therapeutic: await EquipmentModel.countDocuments({
-          HospitalId: req.user._id,
-          Category: { $in: ['Therapeutic'] }
+        HospitalId: req.user._id,
+        Category: { $in: ["Therapeutic"] },
       }),
       Surgical: await EquipmentModel.countDocuments({
-          HospitalId: req.user._id,
-          Category: { $in: ['Surgical'] }
+        HospitalId: req.user._id,
+        Category: { $in: ["Surgical"] },
       }),
       Monitoring: await EquipmentModel.countDocuments({
-          HospitalId: req.user._id,
-          Category: { $in: ['Monitoring'] }
+        HospitalId: req.user._id,
+        Category: { $in: ["Monitoring"] },
       }),
       Others: await EquipmentModel.countDocuments({
-          HospitalId: req.user._id,
-          Category: { $in: ['Others'] }
-      })
-  };
+        HospitalId: req.user._id,
+        Category: { $in: ["Others"] },
+      }),
+    };
 
     res.render("profile", {
       hospital,
@@ -350,7 +369,7 @@ router.get("/profile", isLoggedIn, async (req, res) => {
       activeEquipments,
       expiredEquipments,
       lowStockEquipments,
-      categoryCount
+      categoryCount,
     });
   } catch (err) {
     console.log(err);
@@ -358,28 +377,27 @@ router.get("/profile", isLoggedIn, async (req, res) => {
   }
 });
 
-
-function isLoggedIn(req, res, next) {
+async function isLoggedIn(req, res, next) {
   const token = req.cookies.token;
   if (!token) {
-    return res.redirect("/login");  
+    return res.redirect("/login");
   }
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = await jwt.verify(token, JWT_SECRET);
     req.user = {
-      _id: decoded.id, 
-      Email: decoded.Email, 
+      _id: decoded.id,
+      Email: decoded.Email,
     };
     next();
   } catch (err) {
     console.error("Error decoding JWT:", err);
-    return res.redirect("/login");  // Redirect to login on token error
+    return res.redirect("/login");
   }
 }
 
-router.get('/about' , (req , res)=>{
-  res.render('about');
-})
+router.get("/about", (req, res) => {
+  res.render("about");
+});
 
 router.get("/logout", (req, res) => {
   res.clearCookie("token");
